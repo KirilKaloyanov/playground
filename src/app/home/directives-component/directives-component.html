@@ -1,0 +1,40 @@
+<h1>Unless directive</h1>
+<p>  The UnlessDirective demonstrates Angular's structural directive API by inverting the logic of the built-in *ngIf. It injects TemplateRef and ViewContainerRef — two core primitives that give
+  directives direct control over the DOM. When the bound condition is false, the directive calls createEmbeddedView to stamp the template into the view; when the condition becomes true, it calls
+  clear to remove it. A hasView flag guards against redundant DOM operations, showing how directives can maintain private state across change detection cycles. This pattern illustrates that
+  Angular's template engine is not a black box: developers can tap into the same low-level APIs the framework itself uses to build *ngIf and *ngFor, enabling fully custom conditional rendering
+  logic that integrates seamlessly with Angular's change detection and without any additional configuration.</p>
+
+  <p *appUnless="false">Hey</p>
+
+<h1>Repeat directive</h1>
+<p>The RepeatDirective showcases how Angular structural directives can generate multiple DOM nodes from a single template declaration — something impossible with attribute directives alone. By
+  accepting a numeric count input, it loops over ViewContainerRef.createEmbeddedView, stamping the host template once per iteration. Each embedded view receives a typed RepeatContext object
+  carrying $implicit (the current index) and count (the total), which the template can destructure using Angular's let micro-syntax: *appRepeat="3; let i". The $implicit convention mirrors how
+  *ngFor exposes its loop variable, demonstrating that Angular's micro-syntax is a first-class, extensible pattern rather than framework magic. Clearing the container before each re-render keeps
+  the directive idempotent when count changes, highlighting how reactive input setters combine naturally with imperative view manipulation.</p>
+<ul>
+  <li *appRepeat="5; let i">Item {{ i + 1 }} of 5</li>
+</ul>
+
+<h1>Observables directive</h1>
+<p>The ObservablesDirective pushes Angular's structural directive micro-syntax further by introducing a custom keyword — from — to create a small domain-specific language directly in the
+  template. The convention works because Angular maps *appObservablesDirective="let x from obj" to a binding named appObservablesDirectiveFrom, which is picked up by the matching @Input setter.
+  That setter merges incoming data into a shared ObservablesContext object, which is then passed as the template context when createEmbeddedView is called inside ngOnInit. This design separates
+  data binding (the from clause) from view creation (lifecycle hook), giving the directive control over exactly when the template renders. The pattern demonstrates that Angular's micro-syntax is
+  composable and developer-extensible, enabling expressive, readable templates that hide complex data-wiring logic behind a clean, declarative API.</p>
+<div *appObservablesDirective="
+  let tasks = tasks
+  let documents = documents
+  from {
+    tasks: tasks$ | async,
+    documents: documents$ | async,
+  }
+">
+  <span>{{tasks}}</span>
+  <span>{{documents}}</span>
+  <div>{{tasks}}</div>
+  <div>{{documents}}</div>
+</div>
+
+<app-local-counter-component />
