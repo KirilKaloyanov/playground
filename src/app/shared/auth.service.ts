@@ -16,11 +16,12 @@ export class AuthService {
 
   login(username: string, role: UserRole = 'user'): void {
     this.currentUser = { username, role };
+    // this.router.navigate(['home']);
   }
 
   logout(): void {
     this.currentUser = null;
-    this.router.navigate(['home', 'login']);
+    this.router.navigate(['home']);
   }
 
   isAuthenticated(): boolean {

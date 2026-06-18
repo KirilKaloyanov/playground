@@ -8,21 +8,26 @@ import { DirectivesComponent } from './home/directives-component/directives-comp
 import { LoginComponent } from './home/login-component/login-component';
 import { UserComponent } from './guarded-paths/user/user-component';
 import { AdminComponent } from './guarded-paths/admin/admin-component';
+import { AuthGuard } from './shared/guards/AuthGuard';
+import { DependencyInjectionComponent } from './home/dependency-injection/dependency-injection.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent, children: [
             { path: 'directives', component: DirectivesComponent },
+            { path: 'dependency-injection', component: DependencyInjectionComponent }
         ] 
     },
-    { path: 'user', component: UserComponent, children: [
+    { path: 'user', canActivate: [ AuthGuard ] , children: [
+            { path: '', redirectTo: 'profile', pathMatch: "full" },
             { path: 'profile', component: UserProfileComponent },
             { path: 'settings', component: UserSettingsComponent },
         ] 
     },
-    { path: 'admin', component: AdminComponent, children: [
-            {path: 'panel', component: AdminPanelComponent },
-            {path: 'dashboard', component: DashboardComponent }
+    { path: 'admin', children: [
+            { path: '', redirectTo: 'panel', pathMatch: "prefix"},
+            { path: 'panel', component: AdminPanelComponent },
+            { path: 'dashboard', component: DashboardComponent }
         ] 
     },
 ];

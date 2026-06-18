@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { AuthService } from '../../auth.service';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../shared/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-component',
@@ -8,16 +9,23 @@ import { AuthService } from '../../auth.service';
   templateUrl: './login-component.html',
 })
 export class LoginComponent {
-  constructor(private auth: AuthService) {}
+
+  auth = inject(AuthService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
   isLogged() {
     return this.auth.isAuthenticated();
   };
 
   login(role: string) {
-    if (role === "user" || role === "admin" || role === "guest") {
+    if (role === "user" || role === "admin") 
       this.auth.login("Kiril", role);
-    }  
+    
+    this.route.queryParams.subscribe(params => {
+      const path = params['returnUrl'];
+      this.router.navigate([ path ])
+    })
   }
 
   logout() {

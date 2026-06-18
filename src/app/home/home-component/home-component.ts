@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GlobalCounterService } from '../../dInjection/global-counter-service';
+import { GlobalCounterService } from '../../shared/services/global-counter-service';
 import { RouterOutlet, RouterLinkWithHref } from "@angular/router";
 
 @Component({

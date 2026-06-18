@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ObservablesDirective } from '../../directives/observables-directive';
-import { RepeatDirective } from '../../directives/repeat-directive';
-import { UnlessDirective } from '../../directives/unless-directive';
-import { LocalCounterComponent } from '../../dInjection/local-counter-component/local-counter-component';
+import { ObservablesDirective } from '../../shared/directives/observables-directive';
+import { RepeatDirective } from '../../shared/directives/repeat-directive';
+import { UnlessDirective } from '../../shared/directives/unless-directive';
+import { GlobalCounterService } from '../../shared/services/global-counter-service';
 import { Observable } from 'rxjs';
-import { GlobalCounterService } from '../../dInjection/global-counter-service';
-import { RouterOutlet } from "@angular/router";
+import { LocalCounterComponent } from '../dependency-injection/local-counter-component';
 
 @Component({
   selector: 'app-directives-component',
