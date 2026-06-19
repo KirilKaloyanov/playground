@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ObservablesDirective } from '../../shared/directives/observables-directive';
 import { RepeatDirective } from '../../shared/directives/repeat-directive';
 import { UnlessDirective } from '../../shared/directives/unless-directive';
@@ -15,17 +15,17 @@ import { LocalCounterComponent } from '../dependency-injection/local-counter-com
 })
 export class DirectivesComponent implements OnInit{
  
-  tasks$: Observable<any> = new Observable(observer => {
+  tasks$ = new Observable<string>(observer => {
     observer.next("tasks")
     observer.complete()
   })
 
-  documents$: Observable<any> = new Observable(observer => {
+  documents$ = new Observable<string>(observer => {
     observer.next('documents');
     observer.complete();
   });
 
-  constructor(private counter: GlobalCounterService) {}
+  counter = inject(GlobalCounterService)
 
   ngOnInit() {
     console.log(this.counter.getCounter());

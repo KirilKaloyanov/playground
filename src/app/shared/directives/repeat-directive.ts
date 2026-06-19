@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 export interface RepeatContext {
   $implicit: number;
@@ -9,15 +9,13 @@ export interface RepeatContext {
   selector: '[appRepeat]',
 })
 export class RepeatDirective {
-  constructor(
-    private templateRef: TemplateRef<RepeatContext>,
-    private viewContainer: ViewContainerRef,
-  ) {}
+  templateRef = inject(TemplateRef<RepeatContext>);
+  viewContainerRef = inject(ViewContainerRef);
 
   @Input() set appRepeat(count: number) {
-    this.viewContainer.clear();
+    this.viewContainerRef.clear();
     for (let i = 0; i < count; i++) {
-      this.viewContainer.createEmbeddedView(this.templateRef, {
+      this.viewContainerRef.createEmbeddedView(this.templateRef, {
         $implicit: i,
         count,
       });

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 export type UserRole = 'admin' | 'user' | 'guest';
@@ -12,7 +12,7 @@ interface AuthUser {
 export class AuthService {
   private currentUser: AuthUser | null = null;
 
-  constructor(private router: Router) {}
+  router = inject(Router);
 
   login(username: string, role: UserRole = 'user'): void {
     this.currentUser = { username, role };

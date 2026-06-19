@@ -6,8 +6,6 @@ import { DashboardComponent } from './guarded-paths/admin/private-child-admin-co
 import { AdminPanelComponent } from './guarded-paths/admin/admin-panel-component/admin-panel-component';
 import { DirectivesComponent } from './home/directives-component/directives-component';
 import { LoginComponent } from './home/login-component/login-component';
-import { UserComponent } from './guarded-paths/user/user-component';
-import { AdminComponent } from './guarded-paths/admin/admin-component';
 import { AuthGuard } from './shared/guards/AuthGuard';
 import { DependencyInjectionComponent } from './home/dependency-injection/dependency-injection.component';
 

@@ -1,8 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { GlobalCounterService } from '../../shared/services/global-counter-service';
 import { API_URL } from '../../shared/services/non-class-provider-service';
-import { RouterOutlet } from '@angular/router';
-import { GlobalCounterComponent } from "./global-counter.component";
 
 @Component({
   selector: 'app-local-counter-component',

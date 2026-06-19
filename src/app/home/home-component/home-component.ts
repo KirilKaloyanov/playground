@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { GlobalCounterService } from '../../shared/services/global-counter-service';
+import { Component } from '@angular/core';
 import { RouterOutlet, RouterLinkWithHref } from "@angular/router";
 
 @Component({

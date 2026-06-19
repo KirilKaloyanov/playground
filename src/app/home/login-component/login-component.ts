@@ -19,13 +19,15 @@ export class LoginComponent {
   };
 
   login(role: string) {
-    if (role === "user" || role === "admin") 
+    if (role === "user" || role === "admin") {
+
       this.auth.login("Kiril", role);
-    
-    this.route.queryParams.subscribe(params => {
-      const path = params['returnUrl'];
-      this.router.navigate([ path ])
-    })
+      
+      this.route.queryParams.subscribe(params => {
+        const path = params['returnUrl'];
+        if (path) this.router.navigate([ path ]);
+      })
+    }
   }
 
   logout() {
