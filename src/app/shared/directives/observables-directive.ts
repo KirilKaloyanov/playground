@@ -19,7 +19,7 @@ export class ObservablesDirective implements OnInit {
   // "appObservablesDirectiveFrom" for example can then be used 
   // like *appObservablesDirective="let ... from { ... } 
 
-  @Input() set appObservablesDirectiveFrom(value: any ){
+  @Input() set appObservablesDirectiveFrom(value: {tasks: string | null; documents: string | null} ){
     Object.assign(this._context, value);
   }
 
